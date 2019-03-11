@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://rss_reader.gd" type="Script" id=1]
+
+[node name="RSSReader" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+
+[node name="OpenButton" type="Button" parent="."]
+margin_left = 17.1204
+margin_top = 14.7426
+margin_right = 64.1204
+margin_bottom = 34.7426
+text = "Open"
+
+[node name="TextEdit" type="TextEdit" parent="."]
+margin_left = 11.1466
+margin_top = 285.321
+margin_right = 342.147
+margin_bottom = 411.321
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="ItemList" type="ItemList" parent="."]
+margin_left = 19.0
+margin_top = 54.0
+margin_right = 278.0
+margin_bottom = 206.0
+
+[node name="DescriptionField" type="TextEdit" parent="."]
+margin_left = 293.573
+margin_top = 54.1955
+margin_right = 876.573
+margin_bottom = 200.195
+wrap_enabled = true
+
+[node name="LinkButton" type="LinkButton" parent="."]
+margin_left = 27.0
+margin_top = 222.0
+margin_right = 868.0
+margin_bottom = 236.0
+
+[connection signal="pressed" from="OpenButton" to="." method="_on_OpenButton_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
+[connection signal="item_selected" from="ItemList" to="." method="_on_ItemList_item_selected"]
+[connection signal="pressed" from="LinkButton" to="." method="_on_LinkButton_pressed"]
