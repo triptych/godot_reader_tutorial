@@ -8,7 +8,7 @@ var link_arr  =  []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	load_data()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -17,11 +17,22 @@ func _ready():
 
 func _on_OpenButton_pressed():
 	print("Button pressed!")
+	clearFields()
 	populateEdit()
+	
 
 func populateEdit():
 	#pass
-	$HTTPRequest.request("http://rss.cnn.com/rss/edition.rss")
+	var url = $SettingsDialog/RSSURLText.text
+	$HTTPRequest.request(url)
+
+func clearFields():
+	title_arr.clear()
+	desc_arr.clear()
+	link_arr.clear()
+	$ItemList.clear()
+	$DescriptionField.text = ""
+	$LinkButton.text = ""	
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	$TextEdit.set_text(body.get_string_from_utf8())
@@ -96,3 +107,44 @@ func _on_ItemList_item_selected(index):
 func _on_LinkButton_pressed():
 	OS.shell_open($LinkButton.text)
 
+
+
+func _on_SettingsButton_pressed():
+	$SettingsDialog.popup()
+
+
+func _on_ClearButton_pressed():
+	$SettingsDialog/RSSURLText.text = ""
+
+func save_data():
+	print('saving data')
+	print(OS.get_user_data_dir())
+	var save_config = File.new()
+	var save_data = {
+			"url": $SettingsDialog/RSSURLText.text
+		}	
+	
+	save_config.open("user://save_config.save", File.WRITE)
+	save_config.store_line(to_json(save_data))
+	save_config.close()
+		
+
+
+func _on_SaveButton_pressed():
+	save_data() 
+	
+func load_data():
+	print('loading data')
+	var save_config = File.new()
+	if not save_config.file_exists("user://save_config.save"):
+		return #error no save game!
+	save_config.open("user://save_config.save", File.READ)
+	var text = save_config.get_as_text()
+	var url = parse_json(text)['url']
+	print('Loading JSON: ' + text)
+	print('URL: ' + url)	
+
+	$SettingsDialog/RSSURLText.text = url
+	save_config.close()
+	
+	

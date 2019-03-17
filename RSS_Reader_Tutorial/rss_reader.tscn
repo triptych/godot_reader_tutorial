@@ -15,6 +15,7 @@ margin_bottom = 34.7426
 text = "Open"
 
 [node name="TextEdit" type="TextEdit" parent="."]
+visible = false
 margin_left = 11.1466
 margin_top = 285.321
 margin_right = 342.147
@@ -41,7 +42,51 @@ margin_top = 222.0
 margin_right = 868.0
 margin_bottom = 236.0
 
+[node name="SettingsButton" type="Button" parent="."]
+margin_left = 803.709
+margin_top = 9.03579
+margin_right = 866.709
+margin_bottom = 29.0358
+text = "Settings"
+
+[node name="SettingsDialog" type="WindowDialog" parent="."]
+visible = true
+margin_left = 131.0
+margin_top = 148.0
+margin_right = 609.0
+margin_bottom = 314.0
+
+[node name="Label" type="Label" parent="SettingsDialog"]
+margin_left = 25.6806
+margin_top = 13.7915
+margin_right = 65.6806
+margin_bottom = 27.7915
+text = "The RSS Feed URL"
+
+[node name="RSSURLText" type="LineEdit" parent="SettingsDialog"]
+margin_left = 34.0
+margin_top = 46.0
+margin_right = 442.0
+margin_bottom = 70.0
+
+[node name="ClearButton" type="Button" parent="SettingsDialog"]
+margin_left = 393.77
+margin_top = 85.6022
+margin_right = 437.77
+margin_bottom = 105.602
+text = "Clear"
+
+[node name="SaveButton" type="Button" parent="SettingsDialog"]
+margin_left = 327.666
+margin_top = 84.651
+margin_right = 339.666
+margin_bottom = 104.651
+text = "Save"
+
 [connection signal="pressed" from="OpenButton" to="." method="_on_OpenButton_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="item_selected" from="ItemList" to="." method="_on_ItemList_item_selected"]
 [connection signal="pressed" from="LinkButton" to="." method="_on_LinkButton_pressed"]
+[connection signal="pressed" from="SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="SettingsDialog/ClearButton" to="." method="_on_ClearButton_pressed"]
+[connection signal="pressed" from="SettingsDialog/SaveButton" to="." method="_on_SaveButton_pressed"]
