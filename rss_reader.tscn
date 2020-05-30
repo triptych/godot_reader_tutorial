@@ -13,6 +13,9 @@ margin_top = 14.7426
 margin_right = 64.1204
 margin_bottom = 34.7426
 text = "Open"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TextEdit" type="TextEdit" parent="."]
 visible = false
@@ -81,7 +84,6 @@ margin_top = 84.651
 margin_right = 339.666
 margin_bottom = 104.651
 text = "Save"
-
 [connection signal="pressed" from="OpenButton" to="." method="_on_OpenButton_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="item_selected" from="ItemList" to="." method="_on_ItemList_item_selected"]
